@@ -29,6 +29,14 @@ Object oZoomPosicion is a cWebView
     Object oWebMainPanel is a cWebPanel
         Set piColumnCount to 12
         WebSetResponsive piColumnCount rmMobile to 4
+        
+        Object oposicionID is a cWebForm
+            Entry_Item posicion.ID
+            Set piColumnSpan to 2
+            Set piColumnIndex to 0
+            Set peLabelPosition to lpTop
+            Set psLabel to "PosicionID"
+        End_Object 
 
         Object oposicionNombre is a cWebForm
             Entry_Item posicion.Nombre

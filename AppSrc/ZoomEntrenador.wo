@@ -40,6 +40,14 @@ Object oZoomEntrenador is a cWebView
         Set piColumnCount to 12
         WebSetResponsive piColumnCount rmMobile to 4
 
+        Object oentrenadorID is a cWebForm
+            Entry_Item entrenador.ID
+            Set piColumnSpan to 2
+            Set piColumnIndex to 0
+            Set peLabelPosition to lpTop
+            Set psLabel to "ID"
+        End_Object
+
         Object oentrenadorNombre is a cWebForm
             Entry_Item entrenador.Nombre
             Set piColumnSpan to 10
@@ -65,7 +73,7 @@ Object oZoomEntrenador is a cWebView
         End_Object 
 
         Object oequipoID is a cWebForm
-            Entry_Item equipo.ID
+            Entry_Item entrenador.equipoID
             Set piColumnSpan to 2
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop

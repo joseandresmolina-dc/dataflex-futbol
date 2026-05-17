@@ -42,30 +42,37 @@ Object oSelectEntrenador is a cWebView
         Set psCSSClass to "MobileList"
         Set pbServerOnRowClick to True
         Set pbFillHeight to True
-        Set pbShowHeader to False
+        // Mostrar encabezados
+        Set pbShowHeader to True
         Set piSortColumn to 0
+        
+        Object oentrenadorID is a cWebColumn
+            Entry_Item entrenador.Id
+            Set psCaption to "EntrenadorID"
+            Set piWidth to 200
+        End_Object 
 
         Object oentrenadorNombre is a cWebColumn
             Entry_Item entrenador.Nombre
-            Set psCaption to "entrenador.Nombre"
-            Set piWidth to 600
+            Set psCaption to "Nombre"
+            Set piWidth to 400
         End_Object 
 
         Object oentrenadorApellido is a cWebColumn
             Entry_Item entrenador.Apellido
-            Set psCaption to "entrenador.Apellido"
-            Set piWidth to 600
+            Set psCaption to "Apellido"
+            Set piWidth to 400
         End_Object 
 
         Object oentrenadorNacionalidad is a cWebColumn
             Entry_Item entrenador.Nacionalidad
-            Set psCaption to "entrenador.Nacionalidad"
-            Set piWidth to 500
+            Set psCaption to "Nacionalidad"
+            Set piWidth to 400
         End_Object 
 
         Object oDetailButton is a cWebColumnButton
-            Set psCaption to "btn"
-            Set piWidth to 45
+            Set psCaption to "Detalle"
+            Set piWidth to 100
             Set pbFixedWidth to True
             Set pbResizable to False
             Set piListRowSpan to 1

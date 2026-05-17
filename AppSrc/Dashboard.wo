@@ -38,7 +38,7 @@ Object oDashboard is a cWebView
     Set psCSSClass to "Dashboard"
     
     Object oWebMainPanel is a cWebPanel
-        Set piColumnCount to 25
+        Set piColumnCount to 28
         
         // - - - - - - - - - - - - - - -
         // Main Panel's Responsive Rules
@@ -48,12 +48,12 @@ Object oDashboard is a cWebView
     
         // Contenedor principal de tarjetas
         Object oTiles_grp is a cWebGroup
-            Set piColumnSpan to 21 // Ocupamos 21 de 25 columnas
+            Set piColumnSpan to 24 // Ocupamos 21 de 25 columnas
             Set piColumnIndex to 2 // Margen de 2 columans a la izquierda para centrar el contenedor
             Set pbShowBorder to True // Activar borde para enmnarcar las tarjetas
             Set pbShowCaption to True // Activar visibilidad del título
             Set psCaption to "Futbol Gestión" // Título personalizado 
-            Set piColumnCount to 12 // Rejilla interna para repartir las tarjetas
+            Set piColumnCount to 15 // Rejilla interna para repartir las tarjetas
             
             Set psCSSClass to "TilesGroup"
     
@@ -71,11 +71,28 @@ Object oDashboard is a cWebView
                 End_Procedure
            End_Object
            
+           Object oEquiposTile is a cWebHtmlBox
+                Set pbServerOnClick to True
+                Set piColumnSpan to 3
+                Set piColumnIndex to 3
+                Set psCSSClass to "Tile Light"
+                
+                // El HTML define el aspecto (Título y un icono visual)
+                Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Equipos</div><div class="Tile_Subtitle">Gestión de equipos</div></div>'
+                
+                // Registramos la ruta hacia la lista
+                WebRegisterPath ntNavigateForward oSelectEquipo
+            
+                Procedure OnClick String sId String sParam
+                    Send NavigateForward of oSelectEquipo Self
+                End_Procedure
+            End_Object
+           
            
             Object oEntrenadoresTile is a cWebHtmlBox
                 Set pbServerOnClick to True
                 Set piColumnSpan to 3
-                Set piColumnIndex to 3
+                Set piColumnIndex to 6
                 Set psCSSClass to "Tile Light"
                 
                 // El HTML define el aspecto (Título y un icono visual)
@@ -92,7 +109,7 @@ Object oDashboard is a cWebView
             Object oJugadoresTile is a cWebHtmlBox
                 Set pbServerOnClick to True
                 Set piColumnSpan to 3
-                Set piColumnIndex to 6
+                Set piColumnIndex to 9
                 Set psCSSClass to "Tile LightAlternate"
                 Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Jugadores</div><div class="Tile_Subtitle">Gestión de jugadores</div></div>'
                                 
@@ -107,7 +124,7 @@ Object oDashboard is a cWebView
             Object oPosicionTile is a cWebHtmlBox
                 Set pbServerOnClick to True
                 Set piColumnSpan to 3
-                Set piColumnIndex to 9
+                Set piColumnIndex to 12
                 Set psCSSClass to "Tile Dark"
                 Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Posiciones</div><div class="Tile_Subtitle">Gestión de posiciones</div></div>'
     
