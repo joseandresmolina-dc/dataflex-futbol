@@ -1,5 +1,5 @@
 Compiling Program: C:\DataFlex Projects\FutbolWebApp\AppSrc\WebApp.src
-Memory Available: 10870177792
+Memory Available: 10379923456
 1>Use AllWebAppClasses.pkg
 Using pre-compiled package ALLWEBAPPCLASSES.PKG
 Including file: AllWebAppClasses.x64.pkd    (C:\Program Files\DataFlex 25.0\Pkg\AllWebAppClasses.x64.pkd)
@@ -2143,7 +2143,7 @@ Including file: ZoomEquipo.wo    (C:\DataFlex Projects\FutbolWebApp\AppSrc\ZoomE
 37954>>>            Set piColumnSpan to 12
 37955>>>            Set piColumnIndex to 0
 37956>>>            Set peLabelPosition to lpTop
-37957>>>            Set psLabel to "Nombre del Nuevo equipo"
+37957>>>            Set psLabel to "Nombre"
 37958>>>        End_Object 
 37959>>>
 37959>>>        Object oligaNombre is a cWebForm
@@ -2151,7 +2151,7 @@ Including file: ZoomEquipo.wo    (C:\DataFlex Projects\FutbolWebApp\AppSrc\ZoomE
 37962>>>            Set piColumnSpan to 12
 37963>>>            Set piColumnIndex to 0
 37964>>>            Set peLabelPosition to lpTop
-37965>>>            Set psLabel to "Nombre de la Liga a la que pertenece ese equipo"
+37965>>>            Set psLabel to "Liga del equipo"
 37966>>>            Set pbPromptButton to True
 37967>>>            
 37967>>>            // Liga es padre de equipo
@@ -2341,7 +2341,7 @@ Including file: SelectEquipo.wo    (C:\DataFlex Projects\FutbolWebApp\AppSrc\Sel
 38123>>>
 38123>>>        Object oequipoID is a cWebColumn
 38125>>>            Entry_Item equipo.ID
-38126>>>            Set psCaption to "equipo.ID"
+38126>>>            Set psCaption to "ID"
 38127>>>            Set piWidth to 80
 38128>>>        End_Object 
 38129>>>
@@ -2616,7 +2616,7 @@ Including file: cjugadorposicionDataDictionary.dd    (C:\DataFlex Projects\Futbo
 38338>>>>>            Set piColumnSpan to 8
 38339>>>>>            Set piColumnIndex to 0
 38340>>>>>            Set peLabelPosition to lpTop
-38341>>>>>            Set psLabel to "Nombre del jugador"
+38341>>>>>            Set psLabel to "Nombre"
 38342>>>>>        End_Object 
 38343>>>>>
 38343>>>>>        Object ojugadorApellido is a cWebForm
@@ -2624,7 +2624,7 @@ Including file: cjugadorposicionDataDictionary.dd    (C:\DataFlex Projects\Futbo
 38346>>>>>            Set piColumnSpan to 8
 38347>>>>>            Set piColumnIndex to 0
 38348>>>>>            Set peLabelPosition to lpTop
-38349>>>>>            Set psLabel to "Apellido del jugador"
+38349>>>>>            Set psLabel to "Apellido"
 38350>>>>>        End_Object 
 38351>>>>>
 38351>>>>>        Object ojugadorNacionalidad is a cWebForm
@@ -2632,7 +2632,7 @@ Including file: cjugadorposicionDataDictionary.dd    (C:\DataFlex Projects\Futbo
 38354>>>>>            Set piColumnSpan to 8
 38355>>>>>            Set piColumnIndex to 0
 38356>>>>>            Set peLabelPosition to lpTop
-38357>>>>>            Set psLabel to "Nacionalidad del jugador"
+38357>>>>>            Set psLabel to "Nacionalidad"
 38358>>>>>        End_Object 
 38359>>>>>                
 38359>>>>>        Object oequipoNombre is a cWebForm
@@ -2640,7 +2640,7 @@ Including file: cjugadorposicionDataDictionary.dd    (C:\DataFlex Projects\Futbo
 38362>>>>>            Set piColumnSpan to 8
 38363>>>>>            Set piColumnIndex to 0
 38364>>>>>            Set peLabelPosition to lpTop
-38365>>>>>            Set psLabel to "Equipo donde juega"
+38365>>>>>            Set psLabel to "Equipo"
 38366>>>>>            Set pbPromptButton to True
 38367>>>>>            
 38367>>>>>            //Va a SelectEquipo pq el campo equipoNombre es un campo de la tabla Equipo
@@ -3372,7 +3372,7 @@ Including file: ZoomLiga.wo    (C:\DataFlex Projects\FutbolWebApp\AppSrc\ZoomLig
 38996>>>            Set piColumnSpan to 10
 38997>>>            Set piColumnIndex to 0
 38998>>>            Set peLabelPosition to lpTop
-38999>>>            Set psLabel to "¿A qué país pertenece esa Liga?"
+38999>>>            Set psLabel to "País de la liga"
 39000>>>        End_Object 
 39001>>>
 39001>>>        Object oligaEquipos is a cWebForm
@@ -3380,12 +3380,12 @@ Including file: ZoomLiga.wo    (C:\DataFlex Projects\FutbolWebApp\AppSrc\ZoomLig
 39004>>>            Set piColumnSpan to 2
 39005>>>            Set piColumnIndex to 0
 39006>>>            Set peLabelPosition to lpTop
-39007>>>            Set psLabel to "¿Cuántos equipos tiene la liga?"
+39007>>>            Set psLabel to "Numero equipos en la liga"
 39008>>>        End_Object 
 39009>>>
 39009>>>        Object oBotonEquipoLiga is a cWebButton
 39011>>>            Set piColumnSpan to 2
-39012>>>            Set psCaption to "Botón equipos liga"
+39012>>>            Set psCaption to "Equipos liga"
 39013>>>            
 39013>>>                WebRegisterPath ntNavigateForward oSelectEquipo
 39019>>>            Procedure OnClick
@@ -3723,7 +3723,7 @@ Including file: SelectLiga.wo    (C:\DataFlex Projects\FutbolWebApp\AppSrc\Selec
 39301>Send StartWebApp of oWebApp
 39302>
 Summary
-Memory Available: 10866708480
+Memory Available: 10362486784
 Total Warnings : 0
 Total Errors   : 0
 Total Symbols  : 25687
@@ -3731,6 +3731,6 @@ Total Resources: 0
 Total Commands : 39301
 Total Windows  : 0
 Total Pages    : 0
-Static Data    : 486703
+Static Data    : 486571
 Message area   : 264581
-Total Blocks   : 17432
+Total Blocks   : 17431
