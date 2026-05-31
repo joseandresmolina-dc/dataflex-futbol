@@ -52,7 +52,7 @@ Object oDashboard is a cWebView
             Set piColumnIndex to 2 // Margen de 2 columans a la izquierda para centrar el contenedor
             Set pbShowBorder to True // Activar borde para enmnarcar las tarjetas
             Set pbShowCaption to True // Activar visibilidad del título
-            Set psCaption to "Futbol Gestión" // Título personalizado 
+            Set psCaption to "Grupo principal" // Título personalizado 
             Set piColumnCount to 15 // Rejilla interna para repartir las tarjetas
             
             Set psCSSClass to "TilesGroup"

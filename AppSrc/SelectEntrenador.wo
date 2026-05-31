@@ -1,4 +1,4 @@
-﻿// C:\DataFlex Projects\FutbolWebApp\AppSrc\SelectEntrenador.wo
+﻿// C:\DataFlex Projects\futboldb\AppSrc\SelectEntrenador.wo
 // SelectEntrenador
 //
 
@@ -20,21 +20,21 @@ Object oSelectEntrenador is a cWebView
     Set peViewType to vtSelect
     Set piColumnCount to 12
     Set pbShowCaption to False
-    Set piMaxWidth to 1024
+    Set piMaxWidth to 1200
 
     Object oliga_DD is a cligaDataDictionary
     End_Object 
 
     Object oequipo_DD is a cequipoDataDictionary
-        Set DDO_Server To oliga_DD
+        Set DDO_Server to oliga_DD
     End_Object 
 
     Object oentrenador_DD is a centrenadorDataDictionary
-        Set DDO_Server To oequipo_DD
+        Set DDO_Server to oequipo_DD
     End_Object 
 
-    Set Main_DD To oentrenador_DD
-    Set Server  To oentrenador_DD
+    Set Main_DD to oentrenador_DD
+    Set Server  to oentrenador_DD
 
 
     Object oList is a cWebList
@@ -42,37 +42,42 @@ Object oSelectEntrenador is a cWebView
         Set psCSSClass to "MobileList"
         Set pbServerOnRowClick to True
         Set pbFillHeight to True
-        // Mostrar encabezados
         Set pbShowHeader to True
         Set piSortColumn to 0
-        
+
         Object oentrenadorID is a cWebColumn
-            Entry_Item entrenador.Id
-            Set psCaption to "EntrenadorID"
-            Set piWidth to 200
+            Entry_Item entrenador.ID
+            Set psCaption to "ID"
+            Set piWidth to 80
         End_Object 
 
         Object oentrenadorNombre is a cWebColumn
             Entry_Item entrenador.Nombre
             Set psCaption to "Nombre"
-            Set piWidth to 400
+            Set piWidth to 200
         End_Object 
 
         Object oentrenadorApellido is a cWebColumn
             Entry_Item entrenador.Apellido
             Set psCaption to "Apellido"
-            Set piWidth to 400
+            Set piWidth to 200
         End_Object 
 
         Object oentrenadorNacionalidad is a cWebColumn
             Entry_Item entrenador.Nacionalidad
             Set psCaption to "Nacionalidad"
-            Set piWidth to 400
+            Set piWidth to 200
+        End_Object 
+
+        Object oequipoID is a cWebColumn
+            Entry_Item equipo.ID
+            Set psCaption to "EquipoID"
+            Set piWidth to 80
         End_Object 
 
         Object oDetailButton is a cWebColumnButton
             Set psCaption to "Detalle"
-            Set piWidth to 100
+            Set piWidth to 80
             Set pbFixedWidth to True
             Set pbResizable to False
             Set piListRowSpan to 1
@@ -86,7 +91,7 @@ Object oSelectEntrenador is a cWebView
             End_Procedure
 
             Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
-                Move True to NavigateData.bReadOnly
+                
             End_Procedure
 
         End_Object 
@@ -141,7 +146,7 @@ Error DFERR_PROGRAM "NavigateForward to this from-parent child Select view not y
 
         Object oNewButton is a cWebMenuItem
             Set psCSSClass to "WebClearMenuItem"
-            Set psCaption to "New"
+            Set psCaption to "Nuevo"
 
             WebRegisterPath ntNavigateForward oZoomEntrenador
 

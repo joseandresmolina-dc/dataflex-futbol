@@ -11,6 +11,8 @@ Use cWebForm.pkg
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
 Use cjugadorDataDictionary.dd
+Use cposicionDataDictionary.dd
+Use cjugadorposicionDataDictionary.dd
 
 Object oZoomJugador is a cWebView
     Set piColumnCount to 12
@@ -19,49 +21,45 @@ Object oZoomJugador is a cWebView
     Set peViewType to vtZoom
     Set pbShowCaption to False
     Set Verify_Save_Msg to 0
-    Set piMaxWidth to 1024
+    Set piMaxWidth to 1200
 
+    
     Object oliga_DD is a cligaDataDictionary
     End_Object 
-
+        
     Object oequipo_DD is a cequipoDataDictionary
-        Set DDO_Server To oliga_DD
+        Set DDO_Server to oliga_DD
     End_Object 
 
     Object ojugador_DD is a cjugadorDataDictionary
-        Set DDO_Server To oequipo_DD
+        Set DDO_Server to oequipo_DD
     End_Object 
-
-    Set Main_DD To ojugador_DD
-    Set Server  To ojugador_DD
+    
+    Object oposicion_DD is a cposicionDataDictionary
+    End_Object
+   
+    Set Main_DD to ojugador_DD
+    Set Server  to ojugador_DD
 
 
     Object oWebMainPanel is a cWebPanel
-        Set piColumnCount to 12
+        Set piColumnCount to 8
         WebSetResponsive piColumnCount rmMobile to 4
-
-        Object ojugadorID is a cWebForm
-            Entry_Item jugador.ID
-            Set piColumnSpan to 2
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "ID"
-        End_Object 
 
         Object ojugadorNombre is a cWebForm
             Entry_Item jugador.Nombre
-            Set piColumnSpan to 10
+            Set piColumnSpan to 8
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
-            Set psLabel to "Nombre"
+            Set psLabel to "Nombre del jugador"
         End_Object 
 
         Object ojugadorApellido is a cWebForm
             Entry_Item jugador.Apellido
-            Set piColumnSpan to 10
+            Set piColumnSpan to 8
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
-            Set psLabel to "Apellido"
+            Set psLabel to "Apellido del jugador"
         End_Object 
 
         Object ojugadorNacionalidad is a cWebForm
@@ -69,24 +67,67 @@ Object oZoomJugador is a cWebView
             Set piColumnSpan to 8
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
-            Set psLabel to "Nacionalidad"
+            Set psLabel to "Nacionalidad del jugador"
         End_Object 
-
-        Object oequipoID is a cWebForm
-            Entry_Item equipo.ID
-            Set piColumnSpan to 2
+                
+        Object oequipoNombre is a cWebForm
+            Entry_Item equipo.Nombre
+            Set piColumnSpan to 8
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
-            Set psLabel to "EquipoID"
+            Set psLabel to "Equipo donde juega"
             Set pbPromptButton to True
-
-// ToDo: Fill in the from-child parent Select view object name for navigate forward
-//            WebRegisterPath ntNavigateForward oSelectView
+            
+            //Va a SelectEquipo pq el campo equipoNombre es un campo de la tabla Equipo
+            WebRegisterPath ntNavigateForward oSelectEquipo
 
             Procedure OnPrompt
                 Send NavigatePath
             End_Procedure
         End_Object 
+
+        Object oligaNombre is a cWebForm
+            Entry_Item liga.Nombre
+            Set piColumnSpan to 8
+            Set piColumnIndex to 0
+            Set peLabelPosition to lpTop
+            Set psLabel to "Liga en la que juega"
+            Set pbPromptButton to True
+            
+            //LigaNombre es un campo de la tabla Liga
+            WebRegisterPath ntNavigateForward oSelectLiga
+
+            Procedure OnPrompt
+                Send NavigatePath
+            End_Procedure
+        End_Object 
+
+        Object oligaPais is a cWebForm
+            Entry_Item liga.Pais
+            Set piColumnSpan to 8
+            Set piColumnIndex to 0
+            Set peLabelPosition to lpTop
+            Set psLabel to "País de la liga"
+            Set pbPromptButton to True
+
+            //LigaPais es un campo de la tabla Liga
+            WebRegisterPath ntNavigateForward oSelectLiga
+
+            Procedure OnPrompt
+                Send NavigatePath
+            End_Procedure
+        End_Object 
+        
+         Object oPosicionButton is a cWebButton
+            Set piColumnSpan to 6
+            Set psCaption to "Posición"
+            
+            WebRegisterPath ntNavigateForwardCustom oSelectPosicion
+            
+            Procedure OnClick
+                Send NavigatePath
+            End_Procedure
+        End_Object
     End_Object 
 
     Object oActionGroup is a cWebMenuGroup
@@ -187,6 +228,15 @@ Object oZoomJugador is a cWebView
         Case End
 
         Send SetActionButtons
+        
+         If (HasRecord(Server(Self))) Begin
+            Send SetHeaderCaption   ("Jugador:"*jugador.Nombre)
+            Send SetBreadcrumbCaption jugador.Nombre
+        End
+        Else Begin
+            Send SetHeaderCaption   "Nuevo jugador"
+            Send SetBreadcrumbCaption "Nuevo"
+        End 
 
     End_Procedure
 

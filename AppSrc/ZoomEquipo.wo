@@ -1,4 +1,4 @@
-﻿// C:\DataFlex Projects\FutbolWebApp\AppSrc\ZoomEquipo.wo
+﻿// C:\DataFlex Projects\futboldb\AppSrc\ZoomEquipo.wo
 // ZoomEquipo
 //
 
@@ -24,53 +24,61 @@ Object oZoomEquipo is a cWebView
     End_Object 
 
     Object oequipo_DD is a cequipoDataDictionary
-        Set DDO_Server To oliga_DD
+        Set DDO_Server to oliga_DD
     End_Object 
 
-    Set Main_DD To oequipo_DD
-    Set Server  To oequipo_DD
+    Set Main_DD to oequipo_DD
+    Set Server  to oequipo_DD
 
 
     Object oWebMainPanel is a cWebPanel
         Set piColumnCount to 12
         WebSetResponsive piColumnCount rmMobile to 4
-        
-        Object oequipoID is a cWebForm
-            Entry_Item equipo.ID
-            Set piColumnSpan to 2
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "EquipoID"
-        End_Object
 
         Object oequipoNombre is a cWebForm
             Entry_Item equipo.Nombre
-            Set piColumnSpan to 8
+            Set piColumnSpan to 12
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
-            Set psLabel to "Nombre"
+            Set psLabel to "Nombre del Nuevo equipo"
         End_Object 
 
-        Object oligaID is a cWebForm
-            Entry_Item liga.ID
-            Set piColumnSpan to 2
+        Object oligaNombre is a cWebForm
+            Entry_Item liga.Nombre
+            Set piColumnSpan to 12
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
-            Set psLabel to "LigaID"
+            Set psLabel to "Nombre de la Liga a la que pertenece ese equipo"
             Set pbPromptButton to True
-
-// ToDo: Fill in the from-child parent Select view object name for navigate forward
-//            WebRegisterPath ntNavigateForward oSelectView
+            
+            // Liga es padre de equipo
+            WebRegisterPath ntNavigateForward oSelectLiga
 
             Procedure OnPrompt
                 Send NavigatePath
             End_Procedure
         End_Object 
- 
+
+        Object oligaPais is a cWebForm
+            Entry_Item liga.Pais
+            Set piColumnSpan to 10
+            Set piColumnIndex to 0
+            Set peLabelPosition to lpTop
+            Set psLabel to "Pais"
+            Set pbPromptButton to True
+            
+            // Liga es padre de equipo
+            WebRegisterPath ntNavigateForward oSelectLiga
+
+            Procedure OnPrompt
+                Send NavigatePath
+            End_Procedure
+        End_Object 
     End_Object 
 
     Object oActionGroup is a cWebMenuGroup
 
+        //Este es el objeto que va a cerrar la navegación
         Object oSaveBtn is a cWebMenuItem
             Set psCSSClass to "WebSaveMenuItem"
             Set psCaption to "Save"
@@ -148,6 +156,7 @@ Object oZoomEquipo is a cWebView
         Send NavigateClose Self
     End_Procedure
 
+    //Puerta de Entrada
     Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
         Case Begin
             Case (NavigateData.eNavigateType = nfFromMain)
@@ -167,7 +176,14 @@ Object oZoomEquipo is a cWebView
         Case End
 
         Send SetActionButtons
-
+         If (HasRecord(Server(Self))) Begin
+            Send SetHeaderCaption   ("Equipo:"*equipo.Nombre)
+            Send SetBreadcrumbCaption equipo.Nombre
+        End
+        Else Begin
+            Send SetHeaderCaption   "Nuevo equipo"
+            Send SetBreadcrumbCaption "Nuevo"
+        End 
     End_Procedure
 
 End_Object 

@@ -1,6 +1,4 @@
-﻿// C:\DataFlex Projects\FutbolWebApp\AppSrc\ZoomLiga.wo
-// ZoomLiga
-//
+﻿// C:\DataFlex Projects\futboldb\AppSrc\ZoomLiga.wo
 
 Use cWebView.pkg
 Use cWebPanel.pkg
@@ -9,6 +7,10 @@ Use cWebMenuItem.pkg
 Use cWebForm.pkg
 
 Use cligaDataDictionary.dd
+Use cequipoDataDictionary.dd
+Use cWebButton.pkg
+Use cWebList.pkg
+Use cWebColumn.pkg
 
 Object oZoomLiga is a cWebView
     Set piColumnCount to 12
@@ -18,40 +20,38 @@ Object oZoomLiga is a cWebView
     Set pbShowCaption to False
     Set Verify_Save_Msg to 0
     Set piMaxWidth to 1024
+    
 
-    Object oliga_DD is a cligaDataDictionary
+    Object oliga_DD is a cligaDataDictionary 
+    End_Object
+
+    Object oequipo_DD is a cequipoDataDictionary
+    Set DDO_Server to oliga_DD
+    Set Constrain_File to liga.File_Number
     End_Object 
 
-    Set Main_DD To oliga_DD
-    Set Server  To oliga_DD
+    Set Main_DD to oliga_DD
+    Set Server  to oliga_DD
 
 
     Object oWebMainPanel is a cWebPanel
         Set piColumnCount to 12
         WebSetResponsive piColumnCount rmMobile to 4
-        
-        Object oligaID is a cWebForm
-            Entry_Item liga.ID
-            Set piColumnSpan to 2
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "LigaID"
-        End_Object
 
         Object oligaNombre is a cWebForm
             Entry_Item liga.Nombre
-            Set piColumnSpan to 8
+            Set piColumnSpan to 12
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
-            Set psLabel to "Nombre"
+            Set psLabel to "Nombre de la Liga"
         End_Object 
 
         Object oligaPais is a cWebForm
             Entry_Item liga.Pais
-            Set piColumnSpan to 8
+            Set piColumnSpan to 10
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
-            Set psLabel to "Pais"
+            Set psLabel to "¿A qué país pertenece esa Liga?"
         End_Object 
 
         Object oligaEquipos is a cWebForm
@@ -59,18 +59,52 @@ Object oZoomLiga is a cWebView
             Set piColumnSpan to 2
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
-            Set psLabel to "Equipos"
+            Set psLabel to "¿Cuántos equipos tiene la liga?"
         End_Object 
 
-        Object oligaEquiposMax is a cWebForm
-            Entry_Item liga.EquiposMax
+        Object oBotonEquipoLiga is a cWebButton
             Set piColumnSpan to 2
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "EquiposMax"
-        End_Object 
+            Set psCaption to "Botón equipos liga"
+            
+                WebRegisterPath ntNavigateForward oSelectEquipo
+            Procedure OnClick
+                Send NavigatePath
+            End_Procedure
+        End_Object
+                                          
     End_Object 
 
+    Object oListaEquipos is a cWebPanel
+        Set peRegion to prBottom
+        Set piColumnCount to 12
+        
+        Set Server to oequipo_DD
+        
+        Object oList is a cWebList
+        Set piColumnSpan to 0
+        Set psCSSClass to "MobileList"
+        Set pbServerOnRowClick to True 
+        //Set pbFillHeight to True
+        Set pbShowHeader to False
+        Set piSortColumn to 0
+
+        Object oequipoNombre is a cWebColumn
+            Entry_Item equipo.Nombre
+            Set psCaption to "equipo.Nombre"
+            Set piWidth to 200
+        End_Object 
+
+        Object oligaID is a cWebColumn
+            Entry_Item liga.ID
+            Set psCaption to "equipo.LigaID"
+            Set piWidth to 200
+        End_Object 
+        
+        End_Object
+       
+    End_Object
+    
+    
     Object oActionGroup is a cWebMenuGroup
 
         Object oSaveBtn is a cWebMenuItem
@@ -169,6 +203,15 @@ Object oZoomLiga is a cWebView
         Case End
 
         Send SetActionButtons
+        
+        If (HasRecord(Server(Self))) Begin
+            Send SetHeaderCaption   ("Liga:"*liga.Nombre)
+            Send SetBreadcrumbCaption liga.Nombre
+        End
+        Else Begin
+            Send SetHeaderCaption   "Nueva Liga"
+            Send SetBreadcrumbCaption "Nuevo"
+        End 
 
     End_Procedure
 

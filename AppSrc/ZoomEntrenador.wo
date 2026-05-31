@@ -1,4 +1,4 @@
-﻿// C:\DataFlex Projects\FutbolWebApp\AppSrc\ZoomEntrenador.wo
+﻿// C:\DataFlex Projects\futboldb\AppSrc\ZoomEntrenador.wo
 // ZoomEntrenador
 //
 
@@ -19,21 +19,21 @@ Object oZoomEntrenador is a cWebView
     Set peViewType to vtZoom
     Set pbShowCaption to False
     Set Verify_Save_Msg to 0
-    Set piMaxWidth to 1024
+    Set piMaxWidth to 1200
 
     Object oliga_DD is a cligaDataDictionary
     End_Object 
 
     Object oequipo_DD is a cequipoDataDictionary
-        Set DDO_Server To oliga_DD
+        Set DDO_Server to oliga_DD
     End_Object 
 
     Object oentrenador_DD is a centrenadorDataDictionary
-        Set DDO_Server To oequipo_DD
+        Set DDO_Server to oequipo_DD
     End_Object 
 
-    Set Main_DD To oentrenador_DD
-    Set Server  To oentrenador_DD
+    Set Main_DD to oentrenador_DD
+    Set Server  to oentrenador_DD
 
 
     Object oWebMainPanel is a cWebPanel
@@ -46,11 +46,11 @@ Object oZoomEntrenador is a cWebView
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
             Set psLabel to "ID"
-        End_Object
+        End_Object 
 
         Object oentrenadorNombre is a cWebForm
             Entry_Item entrenador.Nombre
-            Set piColumnSpan to 10
+            Set piColumnSpan to 12
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
             Set psLabel to "Nombre"
@@ -58,7 +58,7 @@ Object oZoomEntrenador is a cWebView
 
         Object oentrenadorApellido is a cWebForm
             Entry_Item entrenador.Apellido
-            Set piColumnSpan to 10
+            Set piColumnSpan to 12
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
             Set psLabel to "Apellido"
@@ -66,18 +66,26 @@ Object oZoomEntrenador is a cWebView
 
         Object oentrenadorNacionalidad is a cWebForm
             Entry_Item entrenador.Nacionalidad
-            Set piColumnSpan to 8
+            Set piColumnSpan to 10
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
             Set psLabel to "Nacionalidad"
         End_Object 
 
         Object oequipoID is a cWebForm
-            Entry_Item entrenador.equipoID
-            Set piColumnSpan to 2
+            Entry_Item equipo.ID
+            Set piColumnSpan to 3
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
             Set psLabel to "EquipoID"
+            Set pbPromptButton to True
+
+// ToDo: Fill in the from-child parent Select view object name for navigate forward
+//            WebRegisterPath ntNavigateForward oSelectView
+
+            Procedure OnPrompt
+                Send NavigatePath
+            End_Procedure
         End_Object 
     End_Object 
 
