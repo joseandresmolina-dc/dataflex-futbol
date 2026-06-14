@@ -1,5 +1,5 @@
-﻿// C:\DataFlex Projects\futboldb\AppSrc\SelectLiga.wo
-// SelectLiga
+﻿// C:\DataFlex Projects\FutbolWebApp\AppSrc\SelectJugadorPosicion.wo
+// SelectJugadorPosicion
 //
 
 Use cWebView.pkg
@@ -8,22 +8,43 @@ Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebColumnButton.pkg
 Use cWebColumn.pkg
+Use ZoomJugadorPosicion.wo
 
 Use cligaDataDictionary.dd
+Use cequipoDataDictionary.dd
+Use cjugadorDataDictionary.dd
+Use cposicionDataDictionary.dd
+Use cjugadorposicionDataDictionary.dd
 
-Object oSelectLiga is a cWebView
-    Set psCaption to "SelectLiga"
+Object oSelectJugadorPosicion is a cWebView
+    Set psCaption to "SelectJugadorPosicion"
     Set peWebViewStyle to wvsDrilldown
     Set peViewType to vtSelect
     Set piColumnCount to 12
     Set pbShowCaption to False
-    Set piMaxWidth to 1200
+    Set piMaxWidth to 1024
 
     Object oliga_DD is a cligaDataDictionary
     End_Object 
 
-    Set Main_DD to oliga_DD
-    Set Server  to oliga_DD
+    Object oequipo_DD is a cequipoDataDictionary
+        Set DDO_Server To oliga_DD
+    End_Object 
+
+    Object ojugador_DD is a cjugadorDataDictionary
+        Set DDO_Server To oequipo_DD
+    End_Object 
+
+    Object oposicion_DD is a cposicionDataDictionary
+    End_Object 
+
+    Object ojugadorposicion_DD is a cjugadorposicionDataDictionary
+        Set DDO_Server To ojugador_DD
+        Set DDO_Server To oposicion_DD
+    End_Object 
+
+    Set Main_DD To ojugadorposicion_DD
+    Set Server  To ojugadorposicion_DD
 
 
     Object oList is a cWebList
@@ -31,36 +52,29 @@ Object oSelectLiga is a cWebView
         Set psCSSClass to "MobileList"
         Set pbServerOnRowClick to True
         Set pbFillHeight to True
-        Set pbShowHeader to True
+        Set pbShowHeader to False
         Set piSortColumn to 0
-        Set pbServerOnRowClick to True
-        
-        Object oligaID is a cWebColumn
-            Entry_Item liga.Id
-            Set psCaption to "ID"
-            Set piWidth to 80
+
+        Object ojugadorposicionID is a cWebColumn
+            Entry_Item jugadorposicion.ID
+            Set psCaption to "jugadorposicion.ID"
+            Set piWidth to 100
         End_Object 
 
-        Object oligaNombre is a cWebColumn
-            Entry_Item liga.Nombre
-            Set psCaption to "Nombre"
-            Set piWidth to 200
+        Object ojugadorID is a cWebColumn
+            Entry_Item jugador.ID
+            Set psCaption to "jugadorposicion.JugadorID"
+            Set piWidth to 100
         End_Object 
 
-        Object oligaPais is a cWebColumn
-            Entry_Item liga.Pais
-            Set psCaption to "Pais"
-            Set piWidth to 200
-        End_Object 
-
-        Object oligaEquipos is a cWebColumn
-            Entry_Item liga.Equipos
-            Set psCaption to "Equipos"
-            Set piWidth to 200
+        Object oposicionID is a cWebColumn
+            Entry_Item posicion.ID
+            Set psCaption to "jugadorposicion.PosicionID"
+            Set piWidth to 100
         End_Object 
 
         Object oDetailButton is a cWebColumnButton
-            Set psCaption to "Detalle"
+            Set psCaption to "btn"
             Set piWidth to 45
             Set pbFixedWidth to True
             Set pbResizable to False
@@ -68,7 +82,7 @@ Object oSelectLiga is a cWebView
             Set psBtnCssClass to "WebButtonIcon WebIcon_Info"
             Set peAlign to alignRight
 
-            WebRegisterPath ntNavigateForward oZoomLiga
+            WebRegisterPath ntNavigateForward oZoomJugadorPosicion
 
             Procedure OnClick
                 Send NavigatePath
@@ -80,8 +94,8 @@ Object oSelectLiga is a cWebView
 
         End_Object 
 
-        //Liga no tiene padre pq es la tabla raiz
-        //WebRegisterPath ntNavigateForward oSelectView
+// ToDo: Fill in the from-parent child Select view object name for navigate forward
+//        WebRegisterPath ntNavigateForward oSelectView
 
         Procedure OnRowClick String sRowId
             tWebNavigateData NavigateData
@@ -89,8 +103,9 @@ Object oSelectLiga is a cWebView
 
             Case Begin
                 Case (NavigateData.eNavigateType = nfFromParent)
-                    //Liga no tiene padre pq es la tabla raiz
-                    //Send NavigateForward of oSelectView Self
+// ToDo: Fill in the from-parent child Select view object name for navigate forward
+Error DFERR_PROGRAM "NavigateForward to this from-parent child Select view not yet defined"
+//                    Send NavigateForward of oSelectView Self
                     Case Break
 
                 Case (NavigateData.eNavigateType = nfFromChild)
@@ -102,7 +117,9 @@ Object oSelectLiga is a cWebView
                     Case Break
 
                 Case Else // must be nfUndefined
-                    //Send NavigateForward of oSelectView Self
+// ToDo: Fill in the from-parent child Select view object name for navigate forward
+Error DFERR_PROGRAM "NavigateForward to this from-parent child Select view not yet defined"
+//                    Send NavigateForward of oSelectView Self
 
             Case End
         End_Procedure
@@ -127,9 +144,9 @@ Object oSelectLiga is a cWebView
 
         Object oNewButton is a cWebMenuItem
             Set psCSSClass to "WebClearMenuItem"
-            Set psCaption to "Nuevo"
+            Set psCaption to "New"
 
-            WebRegisterPath ntNavigateForward oZoomLiga
+            WebRegisterPath ntNavigateForward oZoomJugadorPosicion
 
             Procedure OnClick
                 Send NavigatePath
