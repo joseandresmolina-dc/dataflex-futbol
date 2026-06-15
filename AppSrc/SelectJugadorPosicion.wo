@@ -1,56 +1,57 @@
-﻿//
-
-Use cWebView.pkg
+﻿Use cWebView.pkg
 Use cWebPanel.pkg
 Use cWebForm.pkg
-
-Use cligaDataDictionary.dd
-Use cequipoDataDictionary.dd
-Use cjugadorDataDictionary.dd
-Use cposicionDataDictionary.dd
-Use cjugadorposicionDataDictionary.dd
 Use cWebButton.pkg
+Use cWebGroup.pkg
+Use cWebSpacer.pkg
+Use cWebHtmlBox.pkg
+Use cWebMenuGroup.pkg
+Use cWebMenuItem.pkg
+Use cWebLabel.pkg
+Use cWebList.pkg
+Use cWebColumn.pkg
 
 Object oSelectJugadorPosicion is a cWebView
    
    Object oposicionesTotales_DD is a cposicionDataDictionary
    End_Object
    
-    Object oliga_DD is a cligaDataDictionary
-    End_Object 
+   Object oliga_DD is a cligaDataDictionary
+   End_Object 
 
-    Object oequipo_DD is a cequipoDataDictionary
-        Set DDO_Server to oliga_DD
-    End_Object 
+   Object oequipo_DD is a cequipoDataDictionary
+       Set DDO_Server to oliga_DD
+   End_Object 
 
-    Object ojugador_DD is a cjugadorDataDictionary
-        Set DDO_Server to oequipo_DD
-    End_Object 
+   Object ojugador_DD is a cjugadorDataDictionary
+       Set DDO_Server to oequipo_DD
+   End_Object 
 
-    Object oposicion_DD is a cposicionDataDictionary
-    End_Object 
+   Object oposicion_DD is a cposicionDataDictionary
+   End_Object 
 
-    Object ojugadorposicion_DD is a cjugadorposicionDataDictionary
-        Set DDO_Server to ojugador_DD
-        Set DDO_Server to oposicion_DD
-        Set Constrain_File to jugador.File_Number
-    End_Object 
+   Object ojugadorposicion_DD is a cjugadorposicionDataDictionary
+       Set DDO_Server to ojugador_DD
+       Set DDO_Server to oposicion_DD
+       Set Constrain_File to jugador.File_Number
+   End_Object 
 
-    Set Main_DD to ojugadorposicion_DD
-    Set Server  to ojugadorposicion_DD
+   Set Main_DD to ojugadorposicion_DD
+   Set Server  to ojugadorposicion_DD
 
-    Set peWebViewStyle to wvsDrillDown
-    Set peViewType to vtSelect
+   Set peWebViewStyle to wvsDrillDown
+   Set peViewType to vtSelect
     
-    Set psCaption to "SelectJugadorPosicion"
-    Set pbShowCaption to False
+   Set psCaption to "SelectJugadorPosicion"
+   Set pbShowCaption to False
     
-    Set piMaxWidth to 1024
-    Set piColumnCount to 12
+   Set piMaxWidth to 1024
+   Set piColumnCount to 12
     
-    WebSetResponsive piColumnCount rmTabletPortrait to 3
+   WebSetResponsive piColumnCount rmTabletPortrait to 3
 
-    Object oPosicionesTotales_List is a cWebList
+
+   Object oPosicionesTotales_List is a cWebList
         Set Server to oposicionesTotales_DD
         Set pbFillHeight to True
         Set piColumnSpan to 4
@@ -67,54 +68,68 @@ Object oSelectJugadorPosicion is a cWebView
             Set psCaption to "Posición"
             Set peAlign to alignLeft
         End_Object 
-    End_Object 
+   End_Object 
 
-    Object oQuitarPos_Btn is a cWebButton
+
+   Object oQuitarPos_Btn is a cWebButton
         Set psCaption to "Quitar"
+        Set piColumnSpan to 1
         Set piColumnIndex to 5
         
         Procedure OnClick
             String sCurRi
             RowID riCurRi
             
-            //WebGet psCurrentRowId of oPosicionesJugador_List to sCurRi
-            //Move (DeserializeRowID(sCurRi)) to riCurRi
+   
+            Get psCurrentRowId of oPosicionesJugador_List to sCurRi
+            Move (DeserializeRowID(sCurRi)) to riCurRi
             
             If (not(IsNullRowID(riCurRi))) Begin
                 Send Request_Delete of ojugadorposicion_DD
                 Send RefreshListFromDD of oPosicionesJugador_List
             End
         End_Procedure
-    End_Object
+   End_Object
 
-    Object oAnadirPos_Btn is a cWebButton
+   
+   Object oAnadirPos_Btn is a cWebButton
         Set psCaption to "Añadir"
+        Set piColumnSpan to 1
         Set piColumnIndex to 6
+        
         Procedure OnClick
+   
         End_Procedure
-    End_Object
+   End_Object
     
-
-        Object oPosicionesJugador_List is a cWebList
+   
+   Object oPosicionesJugador_List is a cWebList
+        Set Server to ojugadorposicion_DD 
         Set pbFillHeight to True
         Set piColumnSpan to 5
+        Set piColumnIndex to 7
         Set pbServerOnRowClick to True
         Set psCSSClass to "MobileList"
-        Set piSortColumn to 0
-        Set pbShowHeader to False
+        Set piSortColumn to 0             
         Set psLabel to "Posiciones del Jugador"
         Set pbShowLabel to True
         Set peLabelPosition to lpTop
-            Set piColumnIndex to 7
-        End_Object    
-    
-    Procedure OnNavigateForward tWebNavigateData NavigateData Handle hoInvokingView Handle hoInvokingObject
         
-    Send SetHeaderCaption ("Posiciones de: "*jugador.Nombre*jugador.Apellido)
-    Send SetBreadcrumbCaption ("Sus posiciones")
+        
+        Object oJugadorPosicion_Nombre is a cWebColumn
+            Entry_Item posicion.Nombre
+            Set psCaption to "Asignada"
+            Set peAlign to alignLeft
+        End_Object
+   End_Object    
     
-    Send RefreshListFromDD of oPosicionesTotales_List
-    
-    End_Procedure
+   Procedure OnNavigateForward tWebNavigateData NavigateData Handle hoInvokingView Handle hoInvokingObject
+        Send SetHeaderCaption ("Posiciones de: "*jugador.Nombre*jugador.Apellido)
+        Send SetBreadcrumbCaption ("Sus posiciones")
+        
+        
+        Send RefreshListFromDD of oPosicionesTotales_List
+        Send RefreshListFromDD of oPosicionesJugador_List
+   End_Procedure
 
-End_Object 
+End_Object

@@ -44,7 +44,7 @@ Object oDashboard is a cWebView
         // Main Panel's Responsive Rules
         // - - - - - - - - - - - - - - -
         WebSetResponsive piColumnCount rmMobile to 1
-        WebSetResponsive piColumnCount rmTabletPortrait to 16
+        WebSetResponsive piColumnCount rmTabletPortrait to 24
     
         // Contenedor principal de tarjetas
         Object oTiles_grp is a cWebGroup
@@ -53,7 +53,7 @@ Object oDashboard is a cWebView
             Set pbShowBorder to True // Activar borde para enmnarcar las tarjetas
             Set pbShowCaption to True // Activar visibilidad del título
             Set psCaption to "Grupo principal" // Título personalizado 
-            Set piColumnCount to 15 // Rejilla interna para repartir las tarjetas
+            Set piColumnCount to 18 // Rejilla interna para repartir las tarjetas
             
             Set psCSSClass to "TilesGroup"
     
@@ -81,7 +81,7 @@ Object oDashboard is a cWebView
                 Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Equipos</div><div class="Tile_Subtitle">Gestión de equipos</div></div>'
                 
                 // Registramos la ruta hacia la lista
-                WebRegisterPath ntNavigateForward oSelectEquipo
+                WebRegisterPath ntNavigateForwardCustom oSelectEquipo
             
                 Procedure OnClick String sId String sParam
                     Send NavigateForward of oSelectEquipo Self
@@ -120,11 +120,26 @@ Object oDashboard is a cWebView
                 End_Procedure
                 
             End_Object
+            
+            Object oPosicionJugadorTile is a cWebHtmlBox
+                Set pbServerOnClick to True
+                Set piColumnSpan to 3
+                Set piColumnIndex to 12
+                Set psCSSClass to "Tile LightAlternate"
+                Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Posición Jugador</div><div class="Tile_Subtitle">Posicion de los jugadores</div></div>'
+                                
+                WebRegisterPath ntNavigateForwardCustom oSelectJugadorPosicion
+                
+                Procedure OnClick String sId String sParam
+                    Send NavigateForward of oSelectJugadorPosicion Self
+                End_Procedure
+                
+            End_Object
     
             Object oPosicionTile is a cWebHtmlBox
                 Set pbServerOnClick to True
                 Set piColumnSpan to 3
-                Set piColumnIndex to 12
+                Set piColumnIndex to 15
                 Set psCSSClass to "Tile Dark"
                 Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Posiciones</div><div class="Tile_Subtitle">Gestión de posiciones</div></div>'
     
